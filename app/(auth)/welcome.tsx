@@ -1,37 +1,91 @@
 import { router } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { useRef, useState } from "react";
+import {
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewToken,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { onboarding } from "@/constants";
+import CustomButton from "@/components/CustomButton";
 
 const Welcome = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const flatListRef = useRef<FlatList>(null);
+
+  const isLastSlide = activeIndex === onboarding.length - 1;
+
+  const handleViewableItemsChanged = useRef(
+    ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+      if (viewableItems[0]?.index !== null && viewableItems[0]?.index !== undefined) {
+        setActiveIndex(viewableItems[0].index);
+      }
+    }
+  ).current;
+
+  const handleNext = () => {
+    if (isLastSlide) {
+      router.replace("/(auth)/sign-up");
+    } else {
+      flatListRef.current?.scrollToIndex({ index: activeIndex + 1 });
+    }
+  };
+
   return (
     <SafeAreaView className="flex h-full items-center justify-between bg-white">
-      <View className="flex w-full flex-1 items-center justify-center px-5">
-        <Text className="text-4xl font-bold text-center text-black">
-          EasyRide
-        </Text>
-        <Text className="text-lg text-center text-gray-500 mt-3">
-          Your ride, your way
-        </Text>
-      </View>
+      <TouchableOpacity
+        onPress={() => router.replace("/(auth)/sign-up")}
+        className="w-full flex justify-end items-end p-5"
+      >
+        <Text className="text-black text-md font-JakartaBold">Skip</Text>
+      </TouchableOpacity>
 
-      <View className="w-full px-5 pb-10 gap-4">
-        <TouchableOpacity
-          className="w-full bg-black py-4 rounded-full"
-          onPress={() => router.push("/(auth)/sign-up")}
-        >
-          <Text className="text-white text-center font-semibold text-lg">
-            Get Started
-          </Text>
-        </TouchableOpacity>
+      <FlatList
+        ref={flatListRef}
+        data={onboarding}
+        renderItem={({ item }) => (
+          <View className="flex items-center justify-center p-5" style={{ width: 375 }}>
+            <Image
+              source={item.image}
+              className="w-full h-[300px]"
+              resizeMode="contain"
+            />
+            <View className="flex flex-row items-center justify-between w-full mt-10">
+              <Text className="text-black text-3xl font-bold mx-10 text-center">
+                {item.title}
+              </Text>
+            </View>
+            <Text className="text-md font-JakartaSemiBold text-center text-[#858585] mx-10 mt-3">
+              {item.description}
+            </Text>
+          </View>
+        )}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        onViewableItemsChanged={handleViewableItemsChanged}
+        viewabilityConfig={{ itemVisiblePercentThreshold: 50 }}
+      />
 
-        <TouchableOpacity
-          className="w-full bg-white border border-gray-200 py-4 rounded-full"
-          onPress={() => router.push("/(auth)/sign-in")}
-        >
-          <Text className="text-black text-center font-semibold text-lg">
-            Already have an account? Log In
-          </Text>
-        </TouchableOpacity>
+      <CustomButton
+        title={isLastSlide ? "Get Started" : "Next"}
+        onPress={handleNext}
+        className="w-11/12 mt-10 mb-5"
+      />
+
+      <View className="flex flex-row items-center justify-center w-full gap-x-3 mb-5">
+        {onboarding.map((_, index) => (
+          <View
+            key={index}
+            className={`w-[32px] h-[4px] rounded-full ${
+              activeIndex === index ? "bg-[#0286FF]" : "bg-[#E2E8F0]"
+            }`}
+          />
+        ))}
       </View>
     </SafeAreaView>
   );
