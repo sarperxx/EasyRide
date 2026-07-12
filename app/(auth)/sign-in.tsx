@@ -40,23 +40,24 @@ const SignIn = () => {
         <View className="relative w-full h-[250px]">
           <Image source={images.signUpCar} className="z-0 w-full h-[250px]" />
           <Text className="text-2xl text-black font-JakartaSemiBold absolute bottom-5 left-5">
-            Welcome Back 👋
+            Tekrar Hoş Geldin 👋
           </Text>
         </View>
 
         <View className="p-5">
           <InputField
-            label="Email"
-            placeholder="Enter your email"
+            label="E-posta"
+            placeholder="E-posta adresinizi girin"
             icon={icons.email}
             textContentType="emailAddress"
             keyboardType="email-address"
+            autoCapitalize="none"
             value={form.email}
             onChangeText={(value) => setForm({ ...form, email: value })}
           />
           <InputField
-            label="Password"
-            placeholder="Enter your password"
+            label="Şifre"
+            placeholder="Şifrenizi girin"
             icon={icons.lock}
             secureTextEntry={true}
             textContentType="password"
@@ -65,7 +66,7 @@ const SignIn = () => {
           />
 
           <CustomButton
-            title="Sign In"
+            title="Giriş Yap"
             onPress={onSignInPress}
             className="mt-6"
           />
@@ -76,8 +77,8 @@ const SignIn = () => {
             href="/(auth)/sign-up"
             className="text-lg text-center text-general-200 mt-10"
           >
-            Don't have an account?{" "}
-            <Text className="text-primary-500">Sign Up</Text>
+            Hesabın yok mu?{" "}
+            <Text className="text-primary-500">Kayıt Ol</Text>
           </Link>
         </View>
       </View>

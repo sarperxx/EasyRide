@@ -40,7 +40,7 @@ const Welcome = () => {
         onPress={() => router.replace("/(auth)/sign-up")}
         className="w-full flex justify-end items-end p-5"
       >
-        <Text className="text-black text-md font-JakartaBold">Skip</Text>
+        <Text className="text-black text-md font-JakartaBold">Geç</Text>
       </TouchableOpacity>
 
       <FlatList
@@ -72,7 +72,7 @@ const Welcome = () => {
       />
 
       <CustomButton
-        title={isLastSlide ? "Get Started" : "Next"}
+        title={isLastSlide ? "Başla" : "İleri"}
         onPress={handleNext}
         className="w-11/12 mt-10 mb-5"
       />

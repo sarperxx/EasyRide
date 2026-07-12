@@ -1,33 +1,24 @@
 import { Tabs } from "expo-router";
-import { Image, ImageSourcePropType, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { View } from "react-native";
 
-const icons = {
-  home: require("@/assets/icons/home.png"),
-  rides: require("@/assets/icons/list.png"),
-  chat: require("@/assets/icons/chat.png"),
-  profile: require("@/assets/icons/profile.png"),
-};
+type IconName = "home" | "home-outline" | "car" | "car-outline" | "chatbubble" | "chatbubble-outline" | "person" | "person-outline";
 
 const TabIcon = ({
-  source,
+  name,
   focused,
 }: {
-  source: ImageSourcePropType;
+  name: IconName;
   focused: boolean;
 }) => (
   <View
-    className={`flex flex-row justify-center items-center rounded-full ${focused ? "bg-general-300" : ""}`}
+    className={`w-12 h-12 items-center justify-center rounded-full ${focused ? "bg-[#0286FF]" : ""}`}
   >
-    <View
-      className={`rounded-full w-12 h-12 items-center justify-center ${focused ? "bg-general-400" : ""}`}
-    >
-      <Image
-        source={source}
-        tintColor="white"
-        resizeMode="contain"
-        className="w-7 h-7"
-      />
-    </View>
+    <Ionicons
+      name={name}
+      size={26}
+      color="white"
+    />
   </View>
 );
 
@@ -58,40 +49,40 @@ const TabsLayout = () => {
       <Tabs.Screen
         name="home"
         options={{
-          title: "Home",
+          title: "Ana Sayfa",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} source={icons.home} />
+            <TabIcon focused={focused} name={focused ? "home" : "home-outline"} />
           ),
         }}
       />
       <Tabs.Screen
         name="rides"
         options={{
-          title: "Rides",
+          title: "Sürüşlerim",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} source={icons.rides} />
+            <TabIcon focused={focused} name={focused ? "car" : "car-outline"} />
           ),
         }}
       />
       <Tabs.Screen
         name="chat"
         options={{
-          title: "Chat",
+          title: "Mesajlar",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} source={icons.chat} />
+            <TabIcon focused={focused} name={focused ? "chatbubble" : "chatbubble-outline"} />
           ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profile",
+          title: "Profil",
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} source={icons.profile} />
+            <TabIcon focused={focused} name={focused ? "person" : "person-outline"} />
           ),
         }}
       />

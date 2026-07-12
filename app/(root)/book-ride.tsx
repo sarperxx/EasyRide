@@ -5,9 +5,9 @@ const BookRide = () => {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-1 items-center justify-center">
-        <Text className="text-2xl font-bold text-black">Book Ride</Text>
+        <Text className="text-2xl font-bold text-black">Sürüş Rezervasyonu</Text>
         <Text className="text-gray-500 mt-2">
-          Stripe payment coming in Week 6
+         Yakında geliyor
         </Text>
       </View>
     </SafeAreaView>

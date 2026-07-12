@@ -41,23 +41,23 @@ export const icons = {
 export const onboarding = [
   {
     id: 1,
-    title: "The perfect ride is just a tap away!",
+    title: "Mükemmel yolculuk bir dokunuşla!",
     description:
-      "Your journey begins with EasyRide. Find your ideal ride effortlessly.",
+      "Yolculuğun EasyRide ile başlıyor. İdeal aracını kolayca bul.",
     image: images.onboarding1,
   },
   {
     id: 2,
-    title: "Best car in your hands with EasyRide",
+    title: "En iyi araç EasyRide ile yanında",
     description:
-      "Discover the convenience of finding your perfect ride with EasyRide",
+      "EasyRide ile mükemmel yolculuğunu bulmanın kolaylığını keşfet.",
     image: images.onboarding2,
   },
   {
     id: 3,
-    title: "Your ride, your way. Let's go!",
+    title: "Senin yolculuğun, senin tarzın!",
     description:
-      "Enter your destination, sit back, and let us take care of the rest.",
+      "Hedefini gir, yerine otur, gerisini biz halledelim.",
     image: images.onboarding3,
   },
 ];

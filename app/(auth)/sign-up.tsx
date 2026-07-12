@@ -75,30 +75,31 @@ const SignUp = () => {
         <View className="relative w-full h-[250px]">
           <Image source={images.signUpCar} className="z-0 w-full h-[250px]" />
           <Text className="text-2xl text-black font-JakartaSemiBold absolute bottom-5 left-5">
-            Create Your Account
+            Hesap Oluştur
           </Text>
         </View>
 
         <View className="p-5">
           <InputField
-            label="Name"
-            placeholder="Enter your name"
+            label="Ad Soyad"
+            placeholder="Adınızı girin"
             icon={icons.person}
             value={form.name}
             onChangeText={(value) => setForm({ ...form, name: value })}
           />
           <InputField
-            label="Email"
-            placeholder="Enter your email"
+            label="E-posta"
+            placeholder="E-posta adresinizi girin"
             icon={icons.email}
             textContentType="emailAddress"
             keyboardType="email-address"
+            autoCapitalize="none"
             value={form.email}
             onChangeText={(value) => setForm({ ...form, email: value })}
           />
           <InputField
-            label="Password"
-            placeholder="Enter your password"
+            label="Şifre"
+            placeholder="Şifrenizi girin"
             icon={icons.lock}
             secureTextEntry={true}
             textContentType="password"
@@ -107,7 +108,7 @@ const SignUp = () => {
           />
 
           <CustomButton
-            title="Sign Up"
+            title="Kayıt Ol"
             onPress={onSignUpPress}
             className="mt-6"
           />
@@ -119,8 +120,8 @@ const SignUp = () => {
             href="/(auth)/sign-in"
             className="text-lg text-center text-general-200 mt-10"
           >
-            Already have an account?{" "}
-            <Text className="text-primary-500">Log In</Text>
+            Zaten hesabın var mı?{" "}
+            <Text className="text-primary-500">Giriş Yap</Text>
           </Link>
         </View>
 
@@ -133,13 +134,13 @@ const SignUp = () => {
         >
           <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
             <Text className="text-2xl font-JakartaExtraBold mb-2">
-              Verification
+              Doğrulama
             </Text>
             <Text className="font-Jakarta mb-5">
-              We've sent a verification code to {form.email}
+              {form.email} adresine doğrulama kodu gönderdik.
             </Text>
             <InputField
-              label="Code"
+              label="Kod"
               icon={icons.lock}
               placeholder="12345"
               value={verification.code}
@@ -154,7 +155,7 @@ const SignUp = () => {
               </Text>
             )}
             <CustomButton
-              title="Verify Email"
+              title="E-postayı Doğrula"
               onPress={onPressVerify}
               className="mt-5 bg-success-500"
             />
@@ -169,13 +170,13 @@ const SignUp = () => {
               className="w-[110px] h-[110px] mx-auto my-5"
             />
             <Text className="text-3xl font-JakartaBold text-center">
-              Verified!
+              Doğrulandı!
             </Text>
             <Text className="text-base text-gray-400 font-Jakarta text-center mt-2">
-              You have successfully verified your account.
+              Hesabın başarıyla doğrulandı.
             </Text>
             <CustomButton
-              title="Browse Home"
+              title="Ana Sayfaya Git"
               onPress={() => {
                 setShowSuccessModal(false);
                 router.push("/(root)/(tabs)/home");
