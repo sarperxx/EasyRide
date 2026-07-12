@@ -5,6 +5,7 @@
   "dependencies": {
     "@clerk/clerk-expo": "^2.19.31",
     "@expo/vector-icons": "^15.1.1",
+    "@neondatabase/serverless": "^1.1.0",
     "expo": "~57.0.1",
     "expo-auth-session": "^57.0.1",
     "expo-constants": "~57.0.2",
