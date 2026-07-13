@@ -79,12 +79,7 @@ const Home = () => {
             </View>
 
             <View className="flex flex-row items-center justify-center bg-blue-100 rounded-2xl h-[220px] mb-5">
-              <View className="items-center gap-2">
-                <Ionicons name="map" size={48} color="#0286FF" />
-                <Text className="text-[#0286FF] font-JakartaMedium">
-                  Harita Hafta 5'te geliyor
-                </Text>
-              </View>
+              <Ionicons name="map" size={48} color="#0286FF" />
             </View>
 
             {/* Son Sürüşler */}
