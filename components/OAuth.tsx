@@ -1,27 +1,42 @@
-import { useOAuth } from "@clerk/clerk-expo";
+import { useOAuth, useUser } from "@clerk/clerk-expo";
 import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import { Alert, Image, Text, View } from "react-native";
 import CustomButton from "@/components/CustomButton";
 import { icons } from "@/constants";
+import { fetchAPI } from "@/lib/fetch";
 
 const OAuth = () => {
   const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
+  const { user } = useUser();
 
   const handleGoogleSignIn = async () => {
     try {
-      const { createdSessionId, setActive } = await startOAuthFlow({
+      const { createdSessionId, setActive, createdUserId } = await startOAuthFlow({
         redirectUrl: Linking.createURL("/(root)/(tabs)/home", {
           scheme: "easyride",
         }),
       });
       if (createdSessionId) {
         setActive!({ session: createdSessionId });
+
+        // Kullanıcıyı NeonDB'ye kaydet
+        if (createdUserId) {
+          await fetchAPI("/(api)/user", {
+            method: "POST",
+            body: JSON.stringify({
+              name: user?.fullName ?? user?.emailAddresses[0].emailAddress.split("@")[0],
+              email: user?.emailAddresses[0].emailAddress,
+              clerkId: createdUserId,
+            }),
+          });
+        }
+
         router.replace("/(root)/(tabs)/home");
       }
     } catch (err) {
       console.error("OAuth error:", err);
-      Alert.alert("Error", "Google sign in failed. Please try again.");
+      Alert.alert("Hata", "Google ile giriş başarısız. Tekrar deneyin.");
     }
   };
 

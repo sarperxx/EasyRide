@@ -1,6 +1,7 @@
 import { useUser } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { useEffect } from "react";
 import {
   FlatList,
   Image,
@@ -12,10 +13,23 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import RideCard from "@/components/RideCard";
 import { data } from "@/constants";
+import { fetchAPI } from "@/lib/fetch";
 
 const Home = () => {
   const { user } = useUser();
   const loading = false;
+
+  useEffect(() => {
+    if (!user) return;
+    fetchAPI("/(api)/user", {
+      method: "POST",
+      body: JSON.stringify({
+        name: user.fullName ?? user.emailAddresses[0].emailAddress.split("@")[0],
+        email: user.emailAddresses[0].emailAddress,
+        clerkId: user.id,
+      }),
+    }).catch(() => {});
+  }, [user]);
 
   return (
     <SafeAreaView className="flex-1 bg-general-500">

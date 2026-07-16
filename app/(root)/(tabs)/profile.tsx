@@ -15,7 +15,6 @@ const Profile = () => {
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-1 items-center justify-center">
         <Text className="text-2xl font-bold text-black">Profil</Text>
-        <Text className="text-gray-500 mt-2">Profil ekranı yakında geliyor</Text>
 
         <TouchableOpacity
           onPress={handleSignOut}
