@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Map from "@/components/Map";
 import RideCard from "@/components/RideCard";
 import { data } from "@/constants";
 import { fetchAPI } from "@/lib/fetch";
@@ -92,8 +93,8 @@ const Home = () => {
               </TouchableOpacity>
             </View>
 
-            <View className="flex flex-row items-center justify-center bg-blue-100 rounded-2xl h-[220px] mb-5">
-              <Ionicons name="map" size={48} color="#0286FF" />
+            <View className="rounded-2xl overflow-hidden h-[220px] mb-5">
+              <Map />
             </View>
 
             {/* Son Sürüşler */}
