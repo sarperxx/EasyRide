@@ -22,7 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!user) return;
-    fetchAPI("/(api)/user", {
+    fetchAPI(`${process.env.EXPO_PUBLIC_SERVER_URL}/api/user`, {
       method: "POST",
       body: JSON.stringify({
         name: user.fullName ?? user.emailAddresses[0].emailAddress.split("@")[0],

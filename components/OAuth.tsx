@@ -22,7 +22,7 @@ const OAuth = () => {
 
         // Kullanıcıyı NeonDB'ye kaydet
         if (createdUserId) {
-          await fetchAPI("/(api)/user", {
+          await fetchAPI(`${process.env.EXPO_PUBLIC_SERVER_URL}/api/user`, {
             method: "POST",
             body: JSON.stringify({
               name: user?.fullName ?? user?.emailAddresses[0].emailAddress.split("@")[0],

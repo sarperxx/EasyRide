@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { View } from "react-native";
 import MapView, { Marker, PROVIDER_DEFAULT, Polyline } from "react-native-maps";
 import * as Location from "expo-location";
 import { useLocationStore, useDriverStore } from "@/store";
@@ -36,7 +36,7 @@ const Map = ({ destinationLatitude, destinationLongitude, onDriverTimesCalculate
   useEffect(() => {
     if (!userLatitude || !userLongitude) return;
 
-    fetch("/api/driver")
+    fetch(`${process.env.EXPO_PUBLIC_SERVER_URL}/api/driver`)
       .then((r) => r.json())
       .then(async ({ data }) => {
         const markers = generateMarkersFromData({ data, userLatitude, userLongitude });
@@ -78,26 +78,25 @@ const Map = ({ destinationLatitude, destinationLongitude, onDriverTimesCalculate
       .catch(console.error);
   }, [userLatitude, userLongitude, destinationLatitude, destinationLongitude]);
 
-  const region = calculateRegion({ userLatitude, userLongitude, destinationLatitude, destinationLongitude });
+  const defaultRegion = {
+    latitude: 41.0082,
+    longitude: 28.9784,
+    latitudeDelta: 0.05,
+    longitudeDelta: 0.05,
+  };
 
-  if (!userLatitude || !userLongitude) {
-    return (
-      <View className="flex justify-between items-center w-full">
-        <ActivityIndicator size="small" color="#000" />
-      </View>
-    );
-  }
+  const region = (userLatitude && userLongitude)
+    ? calculateRegion({ userLatitude, userLongitude, destinationLatitude, destinationLongitude })
+    : defaultRegion;
 
   return (
     <MapView
       provider={PROVIDER_DEFAULT}
-      className="w-full h-full rounded-2xl"
-      tintColor="black"
-      mapType="mutedStandard"
+      style={{ width: "100%", height: "100%" }}
       showsPointsOfInterest={false}
       initialRegion={region}
       showsUserLocation
-      userInterfaceStyle="light"
+      showsMyLocationButton
     >
       {markers.map((marker) => (
         <Marker
